@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body{
+  font-family:"Montserrat",sans-serif;
+  min-height: calc(100vh - 50px);
+  background: linear-gradient(180deg,white 0%,blue 100%);
+  margin:0;
+}
+.container{
+  margin:0 auto;
+  margin-top:50px;
+  border-radius: 50px;
+  width:400px;
+  background-color: white;
+  padding: 20px 10px;
+  position: relative;
+}
+.create_room{
+  width:200px;
+  padding:5px;
+  font-size: 20px;
+  font-weight: 600;
+  background-color: rgb(21, 58, 209);
+  cursor:pointer;
+  border:0px;
+  border-radius: 50px;
+  display:block;
+  margin:100px auto;
+  color:white;
+
+}
+.home{
+  position: absolute;
+  top:1rem;
+  right:4.5rem;
+  cursor: pointer;
+}
+.invite{
+  position: absolute;
+  top:1rem;
+  right:1rem;
+  cursor: pointer;
+}
+.title_container{
+  position: relative;
+  display: inline-block;
+}
+.title{
+  margin-top:1rem;
+  margin-left:30px;
+  font-size: 2rem;
+}
+.edit{
+  position: absolute;
+  top:1rem;
+  right:-20px;
+  cursor:pointer;
+}
+.inner_container{
+  height:400px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin:0 auto;
+}
+.message{
+  display:flex;
+  flex-direction:column ;
+  overflow-y: auto;
+  margin:3px 0px;
+}
+.user{
+  font-size: 12px;
+  text-align: right;
+  font-weight: 600;
+}
+.user_m{
+  padding:5px 20px;
+  border-radius: 20px;
+  background-color: rgb(35, 14, 231);
+  width:fit-content;
+  color:white;
+  margin-right:0;
+  margin-left:auto;
+}
+.user_you{
+  font-size: 12px;
+  font-weight: 600;
+}
+.user_you_m{
+  padding:5px 20px;
+  border-radius: 20px;
+  background-color: rgb(204, 207, 209);
+  width:fit-content;
+}
+.input_form{
+  background-color: rgb(204, 207, 209);
+  border-radius: 20px;
+  display:flex;
+  justify-content: space-between;
+  margin-top:10px;  
+}
+.input_text{
+  background-color: transparent;
+  border:0px;
+  border-radius:20px;
+  padding:5px 10px;
+  width:100%;
+  font-family:"Montserrat",sans-serif;
+  outline: none;
+}
+.input_button{
+  background-color: rgb(35, 14, 231);
+  border:0px;
+  border-radius: 20px;
+  color:white;
+  cursor:pointer;
+  padding:5px 10px;
+  font-family:"Montserrat",sans-serif;
+  font-weight: 600;
+}
