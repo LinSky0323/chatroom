@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider,getAuth,signInWithPopup,onAuthStateChanged } from "firebase/auth";
-import {getFirestore,collection,addDoc} from "firebase/firestore";
+import {getFirestore,collection,addDoc,onSnapshot} from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -52,10 +52,26 @@ export async function sendMessageToRoom(roomId,content){
     const messageRef=collection(db,COLLECTION.ROOM,roomId,COLLECTION.MESSAGE)
     const auth=getAuth();
     const message=await addDoc(messageRef,{
-        snederEmail:auth.currentUser.email,
-        snederName:auth.currentUser.displayName,
+        senderEmail:auth.currentUser.email,
+        senderName:auth.currentUser.displayName,
         content,
         time:new Date()
     })
     return message;
+}
+
+export async function subscribe(fn,roomId){
+    const auth=getAuth();
+    const db=getFirestore();
+    const messageRef=collection(db,COLLECTION.ROOM,roomId,COLLECTION.MESSAGE);
+    const unsubscribe=onSnapshot(messageRef,(messages)=>{
+        const newMessage=messages.docs.map((doc)=>{
+            const data=doc.data();
+            const id=doc.id;
+            return{id,self:auth.currentUser.email===data.senderEmail,...data}
+        })
+        console.log(newMessage)
+        fn(newMessage);
+    })
+    return unsubscribe;
 }

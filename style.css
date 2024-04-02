@@ -63,12 +63,18 @@ body{
   flex-direction: column;
   justify-content: space-between;
   margin:0 auto;
+  
+
 }
-.message{
+.message_container{
   display:flex;
   flex-direction:column ;
-  overflow-y: auto;
   margin:3px 0px;
+  overflow-y: auto;
+}
+.message{
+  margin:5px;
+  border-radius: 10px;
 }
 .user{
   font-size: 12px;
