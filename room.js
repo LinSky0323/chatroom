@@ -23,8 +23,42 @@ function sendMessageListeners(roomId){
         }
     })}
 
+
+function invite(){
+    const btn=document.querySelector("#invite")
+    const black=document.querySelector("#black")
+    const input=document.querySelector("#invite_url")
+    const currentUrl=window.location.href;
+    btn.addEventListener("click",()=>{
+        black.classList.add("open");
+        input.value=currentUrl;
+    })
+}
+
+function copyUrl(){
+    const btn=document.querySelector("#invite_btn");
+    const input=document.querySelector("#invite_url");
+    btn.addEventListener("click",()=>{
+        navigator.clipboard.writeText(input.value);
+        btn.innerText="已複製";
+        setTimeout(()=>{
+            btn.innerText="複製邀請網址";
+        },2000)
+    })
+}
+
+function closeInvite(){
+    const btn=document.querySelector("#invite_close");
+    const black=document.querySelector("#black")
+    btn.addEventListener("click",()=>{
+        black.classList.remove("open");
+    })
+}
 function setEventListeners(roomId){
-    sendMessageListeners(roomId)
+    sendMessageListeners(roomId);
+    invite();
+    copyUrl();
+    closeInvite();
 }
 
 function appendMessage(message){

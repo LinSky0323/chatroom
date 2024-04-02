@@ -126,3 +126,64 @@ body{
   font-family:"Montserrat",sans-serif;
   font-weight: 600;
 }
+.black{
+  display:none;
+  z-index: 1;
+  height:100%;
+  width:100%;
+  left:0;
+  top:0;
+  position: fixed;
+  background-color: rgba(0,0,0,0.5);
+  overflow: auto;
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
+}
+@keyframes fadeIn{
+  from{opacity: 0;}
+  to{opacity: 1;}
+}
+.open{
+  display:block;
+}
+
+.invite_container{
+  margin:15% auto;
+  width:80%;
+  max-width:500px;
+  position: relative;
+  background-color: white;
+  padding:5px ;
+  border:1px solid black;
+  border-radius: 10px;
+  display:flex;
+  flex-direction: column;
+  gap:1rem;
+  animation-name: goin;
+  animation-duration: 0.4s;
+}
+@keyframes goin{
+  from{bottom: -300px;opacity: 0;}
+  to{bottom: 0px;opacity: 1;}
+}
+.invite_title{
+  font-family:"Montserrat",sans-serif;
+  margin:0;
+}
+.invite_close{
+  position: absolute;
+  width:15px;
+  height:15px;
+  top:15px;
+  right:15px;
+  cursor: pointer;
+}
+.invite_btn{
+  background-color: rgb(23, 120, 6);
+  color:white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family:"Montserrat",sans-serif;
+}
