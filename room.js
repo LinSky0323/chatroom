@@ -1,4 +1,4 @@
-import { login, sendMessageToRoom, subscribe } from "./scripts/firebase";
+import { getRoom, login, sendMessageToRoom, subscribe, updateRoomName } from "./scripts/firebase";
 import "./style.css";
 
 
@@ -54,11 +54,50 @@ function closeInvite(){
         black.classList.remove("open");
     })
 }
+
+async function loadRoomName(roomId){
+    const title=document.querySelector("#title");
+    const data=await getRoom(roomId);
+    title.innerText=data.name;
+}
+
+function createTitle(Value){
+    const titleInput=document.createElement("input")
+    titleInput.type="text";
+    titleInput.value=Value;
+    titleInput.className="edit_title"
+    return titleInput;
+}
+async function RoomNameListeners(roomId){
+    const btn=document.querySelector("#edit");
+    btn.addEventListener("click",()=>{
+        const title=document.querySelector("#title");
+        const input=createTitle(title.textContent);
+        title.parentNode.replaceChild(input,title)
+        input.focus();
+        btn.style.display="none";
+        function saveTitle(){
+            updateRoomName(input.value,roomId).then(()=>{
+                title.textContent=input.value
+            })
+            .finally(()=>{
+                input.parentNode.replaceChild(title,input);
+                btn.style.display="block";
+            })
+        }
+        input.addEventListener("blur",saveTitle);
+        input.addEventListener("keydown",(e)=>{
+           if(e.key==="Enter"){input.blur()}
+       })
+    })
+}
+
 function setEventListeners(roomId){
     sendMessageListeners(roomId);
     invite();
     copyUrl();
     closeInvite();
+    RoomNameListeners(roomId);
 }
 
 function appendMessage(message){
@@ -100,6 +139,7 @@ function messageUpdate(messages){
 
 login().then((user)=>{
     const roomId=new URLSearchParams(window.location.search).get("roomId")
+    loadRoomName(roomId);
     setEventListeners(roomId);
     subscribe(messageUpdate,roomId)
 })
