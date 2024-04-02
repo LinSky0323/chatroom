@@ -18,7 +18,10 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const provider=new GoogleAuthProvider();
-
+const COLLECTION={
+    ROOM:"room",
+    MESSAGE:"message"
+}
 export async function login(){
     return new Promise((resolve,reject)=>{
         const auth=getAuth();
@@ -42,4 +45,17 @@ export async function createRoom(){
         create:new Date()
     })
     return room.id;
+}
+
+export async function sendMessageToRoom(roomId,content){
+    const db=getFirestore();
+    const messageRef=collection(db,COLLECTION.ROOM,roomId,COLLECTION.MESSAGE)
+    const auth=getAuth();
+    const message=await addDoc(messageRef,{
+        snederEmail:auth.currentUser.email,
+        snederName:auth.currentUser.displayName,
+        content,
+        time:new Date()
+    })
+    return message;
 }
