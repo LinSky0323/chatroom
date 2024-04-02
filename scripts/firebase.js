@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider,getAuth,signInWithPopup,onAuthStateChanged } from "firebase/auth";
+import {getFirestore,collection,addDoc} from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -18,15 +19,27 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const provider=new GoogleAuthProvider();
 
-export function login(){
-    const auth=getAuth();
-    console.log(auth);
-    onAuthStateChanged(auth,(user)=>{
+export async function login(){
+    return new Promise((resolve,reject)=>{
+        const auth=getAuth();
+        const unsubscribe = onAuthStateChanged(auth,(user)=>{
         if(user){
-            console.log("已登入");
+            resolve(user);
+            unsubscribe();
         }
         else{
             signInWithPopup(auth,provider);
         }
     })
+    })
+   
+}
+
+export async function createRoom(){
+    const db=getFirestore();
+    const room=await addDoc(collection(db,"room"),{
+        name:"chat room",
+        create:new Date()
+    })
+    return room.id;
 }
